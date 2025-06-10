@@ -1,0 +1,33 @@
+spring:
+  config:
+    import: application-secret.properties
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    url: ${DB_URL}
+  h2:
+    console:
+      enabled: true
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+
+
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET_NAME}
+    region:
+      static: ${S3_REGION}
+    stack:
+      auto: false
+    credentials:
+      access-key: ${IAM_ACCESS_KEY}
+      secret-key: ${IAM_SECRET_KEY}
+
+
