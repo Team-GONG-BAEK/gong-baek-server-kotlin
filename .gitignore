@@ -39,4 +39,4 @@ out/
 
 ### Kotlin ###
 .kotlin
-/src/main/resources/application.*
+src/main/resources/application-secret.properties
