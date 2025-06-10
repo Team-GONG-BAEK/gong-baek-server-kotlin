@@ -1,5 +1,6 @@
 package gongbaek.server.controller
 
+import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
@@ -14,7 +15,7 @@ import java.time.LocalDateTime
 @RestController
 @RequestMapping("/s3")
 class S3TestController(
-    val amazonS3: AmazonS3Client
+    val amazonS3: AmazonS3
 ) {
 
     @Value("\${cloud.aws.s3.bucket}")
@@ -23,12 +24,12 @@ class S3TestController(
     @PostMapping("/test-upload")
     fun  testUpload() : ResponseEntity<String> {
         return try{
-            var content = "Hello S3! Test at " + LocalDateTime.now()
-            var fileName = "test-${System.currentTimeMillis()}.txt"
+            val content = "Hello S3! Test at " + LocalDateTime.now()
+            val fileName = "test-${System.currentTimeMillis()}.txt"
 
-            val fileUrl = amazonS3.putObject(bucketName, fileName, content)
+             amazonS3.putObject(bucketName, fileName, content)
 
-            ResponseEntity.ok("파일 업로드 성공! : $fileUrl")
+            ResponseEntity.ok("파일 업로드 성공!")
         }catch (e: Exception){
             ResponseEntity.status(500)
                 .body("upload faill")
@@ -45,7 +46,7 @@ class S3TestController(
             ResponseEntity.ok(fileNames)
         }catch (e: Exception){
             ResponseEntity.status(500)
-                .body(listOf("조회 실패: ${e.message}}"))
+                .body(listOf("조회 실패: ${e.message}"))
         }
     }
 
