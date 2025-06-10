@@ -20,6 +20,13 @@ class S3TestController(
     @Value("\${cloud.aws.s3.bucket}")
     private lateinit var bucketName: String
 
+    /**
+     * Uploads a test text file with a timestamped name to the configured S3 bucket.
+     *
+     * The file content includes a greeting and the current timestamp. Returns a success message with the file URL on success, or an error message with HTTP 500 status on failure.
+     *
+     * @return HTTP 200 with a success message and file URL, or HTTP 500 with an error message if the upload fails.
+     */
     @PostMapping("/test-upload")
     fun  testUpload() : ResponseEntity<String> {
         return try{
@@ -35,6 +42,11 @@ class S3TestController(
         }
     }
 
+    /**
+     * Retrieves a list of all file names in the configured S3 bucket.
+     *
+     * @return HTTP 200 with a list of file names on success, or HTTP 500 with an error message on failure.
+     */
     @GetMapping("/test-list")
     fun listFiles(): ResponseEntity<List<String>>{
         return try{
@@ -50,6 +62,12 @@ class S3TestController(
     }
 
 
+    /**
+     * Deletes the specified file from the configured S3 bucket.
+     *
+     * @param fileName The name of the file to delete from S3.
+     * @return HTTP 200 with a success message if deletion succeeds, or HTTP 500 with an error message if it fails.
+     */
     @DeleteMapping("/test-delete/{fileName}")
     fun deleteFile(@PathVariable fileName: String): ResponseEntity<String> {
         return try {

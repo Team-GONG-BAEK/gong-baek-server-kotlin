@@ -19,6 +19,11 @@ class S3Config(
 ) {
 
 
+    /**
+     * Creates and configures an AmazonS3Client bean using the provided AWS credentials and region.
+     *
+     * @return An AmazonS3Client instance for interacting with AWS S3 services.
+     */
     @Bean
     fun amazonS3(): AmazonS3Client{
         val credentials = BasicAWSCredentials(accessKey, secretKey)
