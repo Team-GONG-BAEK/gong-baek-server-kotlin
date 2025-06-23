@@ -1,15 +1,9 @@
-package gongbaek.server.controller
+package gongbaek.api.controller
 
 import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.AmazonS3Client
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 
 @RestController
@@ -22,34 +16,33 @@ class S3TestController(
     private lateinit var bucketName: String
 
     @PostMapping("/test-upload")
-    fun  testUpload() : ResponseEntity<String> {
-        return try{
+    fun testUpload(): ResponseEntity<String> {
+        return try {
             val content = "Hello S3! Test at " + LocalDateTime.now()
             val fileName = "test-${System.currentTimeMillis()}.txt"
 
-             amazonS3.putObject(bucketName, fileName, content)
+            amazonS3.putObject(bucketName, fileName, content)
 
             ResponseEntity.ok("파일 업로드 성공!")
-        }catch (e: Exception){
+        } catch (e: Exception) {
             ResponseEntity.status(500)
                 .body("upload faill")
         }
     }
 
     @GetMapping("/test-list")
-    fun listFiles(): ResponseEntity<List<String>>{
-        return try{
+    fun listFiles(): ResponseEntity<List<String>> {
+        return try {
             val fileNames = amazonS3.listObjects(bucketName)
                 .objectSummaries
                 .map { it.key }
 
             ResponseEntity.ok(fileNames)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             ResponseEntity.status(500)
                 .body(listOf("조회 실패: ${e.message}"))
         }
     }
-
 
     @DeleteMapping("/test-delete/{fileName}")
     fun deleteFile(@PathVariable fileName: String): ResponseEntity<String> {
@@ -61,6 +54,4 @@ class S3TestController(
                 .body("삭제 실패: ${e.message}")
         }
     }
-
-
 }
