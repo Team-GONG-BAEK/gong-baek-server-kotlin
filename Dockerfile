@@ -1,5 +1,5 @@
 FROM eclipse-temurin:21
 WORKDIR /app
 COPY ./build/libs/*.jar gongbaek.jar
-COPY api/src/application.yml application.yml
+COPY api/src/main/resources/application.yml application.yml
 CMD ["java", "-Duser.timezone=Asia/Seoul", "-jar", "gongbaek.jar"]

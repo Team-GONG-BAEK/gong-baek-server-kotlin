@@ -21,4 +21,12 @@ subprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+
+    afterEvaluate {
+        extensions.findByType<JavaPluginExtension>()?.toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+
+        extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension>()?.jvmToolchain(17)
+    }
 }

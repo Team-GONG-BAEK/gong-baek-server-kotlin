@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
+    id("org.springframework.boot")
 }
 
 repositories {

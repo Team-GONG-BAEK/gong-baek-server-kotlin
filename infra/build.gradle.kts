@@ -21,4 +21,7 @@ dependencies {
 
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // 멀티모듈 의존성
+    implementation(project(":domain"))
 }
