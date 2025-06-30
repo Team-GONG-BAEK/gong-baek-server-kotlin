@@ -1,9 +1,8 @@
-package gongbaek.server.external
+package gongbaek.infra.s3
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -19,9 +18,8 @@ class S3Config(
     val region: String
 ) {
 
-
     @Bean
-    fun amazonS3(): AmazonS3{
+    fun amazonS3(): AmazonS3 {
         val credentials = BasicAWSCredentials(accessKey, secretKey)
 
         return AmazonS3ClientBuilder
@@ -30,8 +28,4 @@ class S3Config(
             .withCredentials(AWSStaticCredentialsProvider(credentials))
             .build()
     }
-
-
-
-
 }

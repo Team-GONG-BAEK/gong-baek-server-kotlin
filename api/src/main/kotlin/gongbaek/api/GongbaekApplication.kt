@@ -1,9 +1,11 @@
-package gongbaek.server
+package gongbaek.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
+@SpringBootApplication(
+    scanBasePackages = ["gongbaek"]
+)
 class GongbaekApplication
 
 fun main(args: Array<String>) {
