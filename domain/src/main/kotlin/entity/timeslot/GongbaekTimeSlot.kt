@@ -2,17 +2,19 @@ package entity.timeslot
 
 import entity.user.User
 import enums.WeekDay
-import jakarta.persistence.*
+import jakarta.persistence.DiscriminatorValue
+import jakarta.persistence.Entity
 
 @Entity
-@Table(name = "time_slot")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "slot_type")
-open class TimeSlotBase(
-    @Enumerated(EnumType.STRING)
-    val weekDay: WeekDay,
-    val startTime: Double,
-    val endTime: Double,
-    @ManyToOne
-    val user: User
+@DiscriminatorValue("GONGBAEK")
+class GongbaekTimeSlot(
+    weekDay: WeekDay,
+    startTime: Double,
+    endTime: Double,
+    user: User
+) : TimeSlotBase(
+    weekDay = weekDay,
+    startTime = startTime,
+    endTime = endTime,
+    user = user
 )

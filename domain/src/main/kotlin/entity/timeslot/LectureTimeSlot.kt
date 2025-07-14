@@ -12,4 +12,9 @@ class LectureTimeSlot(
     startTime: Double,
     endTime: Double,
     user: User
-) : TimeSlotBase(weekDay, startTime, endTime, user)
+) : TimeSlotBase(
+    weekDay = weekDay,
+    startTime = startTime,
+    endTime = endTime,
+    user = user
+)
