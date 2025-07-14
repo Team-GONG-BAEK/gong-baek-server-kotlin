@@ -1,5 +1,6 @@
 package entity.timeslot
 
+import entity.common.BaseTimeEntity
 import entity.user.User
 import enums.WeekDay
 import jakarta.persistence.Column
@@ -22,19 +23,23 @@ import jakarta.persistence.Table
 @Table(name = "time_slot")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "slot_type", discriminatorType = DiscriminatorType.STRING)
-open class TimeSlotBase(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "base_time_slot_id")
-    val id: Long = 0,
-
+open class TimeSlotBase protected constructor(
     @Enumerated(EnumType.STRING)
     val weekDay: WeekDay,
 
+    @Column(nullable = false)
     val startTime: Double,
+
+    @Column(nullable = false)
     val endTime: Double,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     val user: User
-)
+) : BaseTimeEntity() {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "base_time_slot_id")
+    val id: Long = 0
+}
